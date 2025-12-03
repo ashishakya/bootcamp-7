@@ -16,7 +16,8 @@ class PostRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
-            'is_published' => ['sometimes', 'boolean'],
+            'image_url' => ['nullable', 'url', 'max:255'],
+            'is_published' => ['nullable', 'boolean'],
         ];
     }
 }

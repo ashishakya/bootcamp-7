@@ -29,7 +29,14 @@ class PostController extends Controller
         $data['user_id'] = $request->user()->id;
         $data['is_published'] = $request->boolean('is_published');
 
-        Post::create($data);
+        $imageUrl = $data['image_url'] ?? null;
+        unset($data['image_url']);
+
+        $post = Post::create($data);
+
+        if (! empty($imageUrl)) {
+            $post->image()->create(['url' => $imageUrl]);
+        }
 
         return redirect()->route('posts.index')->with('status', 'Post created successfully.');
     }
@@ -64,7 +71,16 @@ class PostController extends Controller
         $data = $request->validated();
         $data['is_published'] = $request->boolean('is_published');
 
+        $imageUrl = $data['image_url'] ?? null;
+        unset($data['image_url']);
+
         $post->update($data);
+
+        if ($imageUrl) {
+            $post->image()->updateOrCreate([], ['url' => $imageUrl]);
+        } else {
+            $post->image()?->delete();
+        }
 
         return redirect()->route('posts.index')->with('status', 'Post updated successfully.');
     }

@@ -41,6 +41,9 @@ class UserController extends Controller
         $roles = $data['roles'] ?? [];
         unset($data['roles']);
 
+        $imageUrl = $data['image_url'] ?? null;
+        unset($data['image_url']);
+
         $user = User::create($data);
 
         if (! empty($data['phone'])) {
@@ -52,6 +55,10 @@ class UserController extends Controller
 
         if (! empty($roles)) {
             $user->roles()->sync($roles);
+        }
+
+        if (! empty($imageUrl)) {
+            $user->image()->create(['url' => $imageUrl]);
         }
 
         return redirect()->route('users.index')->with('status', 'User created successfully.');
@@ -67,9 +74,11 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user): RedirectResponse
     {
         $data = $request->validated();
-
         $roles = $data['roles'] ?? [];
         unset($data['roles']);
+
+        $imageUrl = $data['image_url'] ?? null;
+        unset($data['image_url']);
 
         if (empty($data['password'])) {
             unset($data['password']);
@@ -87,6 +96,12 @@ class UserController extends Controller
         }
 
         $user->roles()->sync($roles);
+
+        if ($imageUrl) {
+            $user->image()->updateOrCreate([], ['url' => $imageUrl]);
+        } else {
+            $user->image()?->delete();
+        }
 
         return redirect()->route('users.index')->with('status', 'User updated successfully.');
     }

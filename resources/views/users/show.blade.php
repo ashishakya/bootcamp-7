@@ -16,7 +16,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 space-y-4">
-                    <h3 class="text-lg font-semibold text-gray-800">{{ $user->name }}</h3>
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-gray-800">{{ $user->name }}</h3>
+                        @if ($user->image && $user->image->url)
+                            <img src="{{ $user->image->url }}" alt="{{ $user->name }}"
+                                class="h-16 w-16 rounded-full object-cover">
+                        @endif
+                    </div>
 
                     <dl class="divide-y divide-gray-200">
                         <div class="py-3 grid grid-cols-3 gap-4">

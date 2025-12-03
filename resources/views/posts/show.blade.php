@@ -15,14 +15,18 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-gray-800">{{ $post->title }}</h3>
+                        @if ($post->image && $post->image->url)
+                            <img src="{{ $post->image->url }}" alt="{{ $post->title }}"
+                                class="h-24 w-24 rounded-md object-cover">
+                        @endif
+                    </div>
+
                     <dl class="divide-y divide-gray-200">
                         <div class="py-3 grid grid-cols-3 gap-4">
                             <dt class="text-sm font-medium text-gray-500">ID</dt>
                             <dd class="mt-1 text-sm text-gray-900 col-span-2">{{ $post->id }}</dd>
-                        </div>
-                        <div class="py-3 grid grid-cols-3 gap-4">
-                            <dt class="text-sm font-medium text-gray-500">Title</dt>
-                            <dd class="mt-1 text-sm text-gray-900 col-span-2">{{ $post->title }}</dd>
                         </div>
                         <div class="py-3 grid grid-cols-3 gap-4">
                             <dt class="text-sm font-medium text-gray-500">Content</dt>

@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             ],
             'password' => $passwordRule,
             'phone' => ['nullable', 'string', 'max:20'],
+            'image_url' => ['nullable', 'url', 'max:255'],
             'roles' => ['nullable', 'array'],
             'roles.*' => ['integer', 'exists:roles,id'],
         ];

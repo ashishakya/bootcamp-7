@@ -40,6 +40,15 @@
 </div>
 
 <div class="mb-4">
+    <label class="block text-gray-700 text-sm font-bold mb-2" for="image_url">Image URL</label>
+    <input id="image_url" type="url" name="image_url" value="{{ old('image_url', $user->image->url ?? '') }}"
+        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+    @error('image_url')
+        <p class="text-red-500 text-xs italic mt-2">{{ $message }}</p>
+    @enderror
+</div>
+
+<div class="mb-4">
     <label class="block text-gray-700 text-sm font-bold mb-2" for="roles">Roles</label>
     <select id="roles" name="roles[]" multiple
         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32">
