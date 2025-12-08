@@ -24,6 +24,11 @@ class AuthController extends Controller
      */
     public function login(Request $request): JsonResponse
     {
+        $credentials = $request->validate([
+                                              'email' => 'required|email',
+                                              'password' => 'required',
+                                          ]);
+
         if (!auth()->attempt($request->only("email", "password"))) {
             return response()->json([
                 "message"=>__("auth.failed"),
@@ -32,7 +37,7 @@ class AuthController extends Controller
         }
 
         /** @var User $user */
-        $user = User::firstWhere("email", $request->get("email"));
+        $user = auth()->user();
 
 //        if (!$user->hasVerifiedEmail()) {
 //            return $this->sendErrorResponse(__("auth.email_not_verified"), 403);
@@ -80,6 +85,13 @@ class AuthController extends Controller
         $request->user()->tokens()->delete();
 
 //        return $this->sendSuccessResponse([], __("auth.logout"));
-        return response()->json("successfully logged out");
+        return response()->json(["message"=>"Successfully logged out."], 200);
+    }
+
+    public function unprotected(Request $request)
+    {
+        return response()->json([
+            "data"=>"These are free data"
+                                ]);
     }
 }
