@@ -21,13 +21,13 @@ Route::get('/user', function (Request $request) {
     ];
 });
 
-Route::post('login', [AuthController::class, "login"])->name("login");
+Route::post('login', [AuthController::class, "login"])->name("api.login");
 
 Route::post('logout', [AuthController::class, "logout"])->name("logout")
     ->middleware('auth:sanctum');
 //Route::post('me', [AuthController::class, "me"])->name("me")->middleware(['auth:sanctum', "abilities:server:update"]);
 Route::get('unprotected', [AuthController::class, "unprotected"]);
-Route::post('me', [AuthController::class, "me"])->name("me")->middleware(['auth:sanctum']);
+Route::post('me', [AuthController::class, "me"])->name("api.me")->middleware(['auth:sanctum']);
 Route::get('users', function (){
     return \App\Models\User::all();
 })->middleware('auth:sanctum');

@@ -23,10 +23,10 @@ class AuthController extends Controller
      */
     public function login(AuthRequest $request): JsonResponse
     {
-//        $credentials = $request->validate([
-//                                              'email' => 'required|email',
-//                                              'password' => 'required',
-//                                          ]);
+         $request->validate([
+                                              'email' => 'required|email',
+                                              'password' => 'required',
+                                          ]);
 
         if (!auth()->attempt($request->only("email", "password"))) {
             return response()->json([
@@ -43,13 +43,13 @@ class AuthController extends Controller
         /** @var User $user */
         $user = auth()->user();
 
-        if (empty($user->email_verified_at)) {
-            return response()->json(["status"=>"Pending eamil verification"], 403);
-        }
-
-        if (!$enable) {
-            return response()->json(["status"=>"Pending Payment"], 403);
-        }
+//        if (empty($user->email_verified_at)) {
+//            return response()->json(["status"=>"Pending eamil verification"], 403);
+//        }
+//
+//        if (!$enable) {
+//            return response()->json(["status"=>"Pending Payment"], 403);
+//        }
 
 
             $token = $user->createToken("Api Token for " . $user->email, ["bootcamper:attendees"])->plainTextToken;
