@@ -12,8 +12,13 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/test', function (Request $request) {
-    return "hey";
+    Route::get('/test', function (Request $request) {
+        $date = today();
+    return [
+        "date"=>today(),
+        "helper"=>formatCarbonDate($date),
+        "sum"=>sum(1,2)
+    ];
 });
 
 Route::post('login', [AuthController::class, "login"])->name("login");
