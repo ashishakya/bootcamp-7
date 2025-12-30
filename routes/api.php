@@ -17,13 +17,22 @@ Route::get('/test', function (Request $request) {
 });
 
 Route::post('login', [AuthController::class, "login"])->name("login");
-Route::post('logout', [AuthController::class, "logout"])->name("logout")->middleware('auth:sanctum');
+
+Route::post('logout', [AuthController::class, "logout"])->name("logout")
+    ->middleware('auth:sanctum');
 //Route::post('me', [AuthController::class, "me"])->name("me")->middleware(['auth:sanctum', "abilities:server:update"]);
 Route::get('unprotected', [AuthController::class, "unprotected"]);
 Route::post('me', [AuthController::class, "me"])->name("me")->middleware(['auth:sanctum']);
-Route::post('users', function (){
+Route::get('users', function (){
     return \App\Models\User::all();
-});
+})->middleware('auth:sanctum');
+
+
+Route::get('check', function (){
+    return \App\Models\User::all();
+//})->middleware(['auth:sanctum', 'abilities:bootcamper-attendees']);
+})->middleware(['auth:sanctum']);
+
 //Route::post('/forgot-password', ForgotPassword::class)->name("forgot_password");
 //Route::post('/reset-password', ResetPassword::class)->name("reset_password");
 //Route::post('account-request', AccountRequestController::class)->name("account_request");
