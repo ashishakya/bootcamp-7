@@ -1,0 +1,29 @@
+bootcamp:
+
+docker compose -f compose.yaml up
+
+./vendor/bin/sail up
+
+ docker compose -f compose.yaml exec laravel.test bash  (vendor install nabhako bela)
+
+ php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider
+
+
+ ./vendor/bin/sail bash (once vendor is installed)
+
+
+ ------------------
+  issue sudo chown -R $USER:$USER .
+
+./vendor/bin/sail down
+./vendor/bin/sail up -d
+
+
+php artisan test --testsuite=Unit
+
+./vendor/bin/sail artisan test tests/Feature/AuthApi/LoginTest.php
+
+
+
+
+
